@@ -1,12 +1,12 @@
 const express = require('express')
 const app = express()
 const port = 8080
-const connection = require('./db/sqlDBConnection')
 const createTables = require('./db/tables')
 
-createTables()
+// createTables()
 
 app.get('/' , (req , res) => {
+    createTables()
     res.send("Hello world")
 })
 
