@@ -3,13 +3,13 @@ const app = express()
 const port = 8080
 const createTables = require('./db/tables')
 const login = require('./routes/login')
-const signup = require('./routes/signup')
+// const signup = require('./routes/signup')
 
 app.use(express.json());
 
 createTables()
 app.use('/login' , login)
-app.use('/signup' , signup)
+// app.use('/signup' , signup)
 
 
 app.get('/' , (req , res) => {
