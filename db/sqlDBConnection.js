@@ -3,14 +3,21 @@ require('dotenv').config();
 
 const connectionString = process.env.CONNECTION_STRING
 
+let connection
+
 const connectToDatabase = async() =>
 {
-    try {
-        const connection = await sql.connect(connectionString);
-        console.log('Connected to Database successful!');
+    if(!connection) {
+        try {
+            connection = await sql.connect(connectionString)
+                .then(pool => {
+                    console.log('Connected to Database successful!');   
+                    return pool;
+                })
+        } catch (err) {
+            console.error('Error connecting to the database:', err.message);
+        }
         return connection
-    } catch (err) {
-        console.error('Error connecting to the database:', err.message);
     }
 }
 
