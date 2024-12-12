@@ -3,7 +3,7 @@ const app = express()
 const port = 8080
 const createTables = require('./db/tables')
 
-await createTables()
+createTables()
 
 app.get('/' , (req , res) => {
     console.log("THE IP ADDRESS " , req.ip)
