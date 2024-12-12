@@ -3,10 +3,9 @@ const app = express()
 const port = 8080
 const createTables = require('./db/tables')
 
-// createTables()
+createTables()
 
 app.get('/' , (req , res) => {
-    createTables()
     res.send("Hello world")
 })
 
