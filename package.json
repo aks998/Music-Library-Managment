@@ -1,0 +1,23 @@
+{
+  "name": "music-library-managment",
+  "version": "1.0.0",
+  "description": "designing music library managment system",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/aks998/Music-Library-Managment.git"
+  },
+  "author": "arun singh",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/aks998/Music-Library-Managment/issues"
+  },
+  "homepage": "https://github.com/aks998/Music-Library-Managment#readme",
+  "dependencies": {
+    "expres": "^0.0.5",
+    "express": "^4.21.2"
+  }
+}
