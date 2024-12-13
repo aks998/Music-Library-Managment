@@ -3,11 +3,10 @@ const jwt = require('jsonwebtoken');
 const connectToDatabase = require('../db/sqlDBConnection');
 const asyncHandler = require('express-async-handler')
 
-const JWT_SECRET_KEY = process.env.JWT_SECRET_KEY;
 
 const login = asyncHandler(async (req, res) => {
     const { email, password } = req.body;
-
+    const JWT_SECRET_KEY = process.env.JWT_SECRET_KEY;
     if (!email || !password) {
         const missingFields = [];
         if (!email) missingFields.push("email");
