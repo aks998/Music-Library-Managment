@@ -1,8 +1,8 @@
-const connection = require('./sqlDBConnection')
+const connectToDatabase = require('./sqlDBConnection')
 
 const createTables = async () => {
     try {
-        const pool = await connection();
+        const pool = await connectToDatabase();
 
         await pool.request().query(`
             IF NOT EXISTS (SELECT * FROM sysobjects WHERE name = 'Users' AND xtype = 'U')
@@ -77,7 +77,7 @@ const createTables = async () => {
                 )
             END
         `);
-
+        pool.close()
         console.log("Tables created successfully!");
     } catch (err) {
         console.error('Error creating tables:', err.message);

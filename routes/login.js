@@ -1,11 +1,11 @@
-const express = require('express');
+const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const connectToDatabase = require('../db/sqlDBConnection');
-const router = express.Router();
+const asyncHandler = require('express-async-handler')
 
-const JWT_SECRET_KEY = process.env.JWT_SECRET_KEY || 'your_jwt_secret_key';
+const JWT_SECRET_KEY = process.env.JWT_SECRET_KEY;
 
-router.post('/', async (req, res) => {
+const login = asyncHandler(async (req, res) => {
     const { email, password } = req.body;
 
     if (!email || !password) {
@@ -16,7 +16,7 @@ router.post('/', async (req, res) => {
         return res.status(400).json({
             status: 400,
             data: null,
-            message: `Bad Request, Reason: Missing Fields: ${missingFields.join(', ')}`,
+            message: `Bad Request, Reason:${missingFields.join(', ')}`,
             error: null
         });
     }
@@ -56,13 +56,8 @@ router.post('/', async (req, res) => {
             error: null
         });
     } catch (err) {
-        return res.status(400).json({
-            status: 400,
-            data: null,
-            message: "Database Error",
-            error: null
-        });
+        console.log(err)
     }
 });
 
-module.exports = router;
+module.exports = login;
