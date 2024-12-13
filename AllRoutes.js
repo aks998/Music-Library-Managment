@@ -6,6 +6,9 @@ const getUsers = require('./controllers/getUsers')
 const logout = require('./controllers/logout')
 const deleteUser = require('./controllers/deleteUser')
 const updatePassword = require('./controllers/updatePassword')
+const getAllArtists = require('./controllers/getAllArtists')
+const getArtist = require('./controllers/getArtist')
+const addArtist = require('./controllers/addArtist')
 const router = express.Router()
 
 router.route('/signup').post(signup)
@@ -15,5 +18,7 @@ router.route('/users').get(getUsers)
 router.route('/logout').get(logout)
 router.route('/users/:user_id').delete(deleteUser)
 router.route('/users/update-password').put(updatePassword)
-
+router.route('/artists').get(getAllArtists)
+router.route('/artists/:artist_id').get(getArtist)
+router.route('/artists/add-artist').post(addArtist)
 module.exports = router
