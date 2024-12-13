@@ -1,5 +1,5 @@
 const jwt = require('jsonwebtoken');
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcryptjs');
 const sql = require('mssql')
 const crypto = require('crypto')
 const connectToDatabase = require('../db/sqlDBConnection');

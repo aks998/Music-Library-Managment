@@ -1,4 +1,4 @@
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const connectToDatabase = require('../db/sqlDBConnection');
 const asyncHandler = require('express-async-handler')
