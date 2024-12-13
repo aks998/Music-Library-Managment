@@ -5,8 +5,8 @@ const asyncHandler = require('express-async-handler')
 
 
 const login = asyncHandler(async (req, res) => {
-    const { email, password } = req.body;
     const JWT_SECRET_KEY = process.env.JWT_SECRET_KEY;
+    const { email, password } = req.body;
     if (!email || !password) {
         const missingFields = [];
         if (!email) missingFields.push("email");

@@ -20,7 +20,7 @@ const addUser = asyncHandler(async (req, res) => {
     try {
         const decoded = jwt.verify(token, process.env.JWT_SECRET_KEY);
 
-        if (decoded.role !== 'admin') {
+        if (decoded.role !== 'Admin') {
             return res.status(403).json({
                 status: 403,
                 data: null,
@@ -40,7 +40,7 @@ const addUser = asyncHandler(async (req, res) => {
             });
         }
 
-        if (role === 'admin') {
+        if (role === 'Admin') {
             return res.status(403).json({
                 status: 403,
                 data: null,

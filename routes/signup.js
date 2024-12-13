@@ -55,7 +55,7 @@ const signup =  asyncHandler(async (req, res) => {
         .input('userId', sql.VarChar, userId)
         .input('email', sql.VarChar, email)
         .input('password', sql.VarChar, hashedPassword)
-        .input('role', sql.VarChar, isFirstUser ? 'admin' : 'viewer')
+        .input('role', sql.VarChar, isFirstUser ? 'Admin' : 'Viewer')
         .query(insertUserQuery);
         return res.status(201).json({
             status: 201,
