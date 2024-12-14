@@ -23,7 +23,7 @@ const createTables = async () => {
                 CREATE TABLE Artists (
                     artist_id UNIQUEIDENTIFIER PRIMARY KEY,
                     name NVARCHAR(255) NOT NULL,
-                    grammy BIT DEFAULT 0, 
+                    grammy INT DEFAULT 0, 
                     hidden BIT DEFAULT 0,
                     created_at DATETIME DEFAULT GETDATE()
                 )

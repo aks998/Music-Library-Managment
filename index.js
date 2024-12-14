@@ -7,8 +7,7 @@ app.use(express.json());
 createTables()
 
 app.get('/' , (req , res) => {
-    console.log("THE IP ADDRESS " , req.ip)
-    res.send("Hello world")
+    res.send("Hello and Welcome to Music Library Management")
 })
 
 app.listen(port , () => {

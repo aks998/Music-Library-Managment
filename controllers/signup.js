@@ -7,7 +7,6 @@ const asyncHandler = require('express-async-handler')
 
 const signup =  asyncHandler(async (req, res) => {
     const { email, password } = req.body;
-    console.log("EMAIL IS " , email , password)
     if (!email || !password) {
         const missingFields = [];
         if (!email) missingFields.push('email');

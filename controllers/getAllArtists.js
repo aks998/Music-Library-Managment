@@ -1,23 +1,31 @@
 const express = require('express');
+const jwt = require('jsonwebtoken');
 const sql = require('mssql');
 const connectToDatabase = require('../db/sqlDBConnection');
 const asyncHandler = require('express-async-handler');
+const crypto = require('crypto');
 
 const router = express.Router();
 
+// Get All Artists
 const getArtists = asyncHandler(async (req, res) => {
   const { limit = 5, offset = 0, grammy, hidden } = req.query;
 
-  if ((grammy && isNaN(grammy)) || (hidden && !(hidden === 'true' || hidden === 'false'))) {
-    return res.status(400).json({
-      status: 400,
+  const authHeader = req.headers.authorization;
+  const token = authHeader && authHeader.split(' ')[1];
+
+  if (!token) {
+    return res.status(401).json({
+      status: 401,
       data: null,
-      message: 'Bad Request',
+      message: 'Unauthorized Access',
       error: null,
     });
   }
 
   try {
+    jwt.verify(token, process.env.JWT_SECRET_KEY); 
+
     const pool = await connectToDatabase();
 
     let query = `SELECT artist_id, name, grammy, hidden FROM Artists`;
@@ -53,8 +61,13 @@ const getArtists = asyncHandler(async (req, res) => {
     });
 
   } catch (error) {
-    console.error("Get Artists error:", error);
+    return res.status(401).json({
+      status: 401,
+      data: null,
+      message: 'Unauthorized Access',
+      error: null,
+    });
   }
 });
 
-module.exports = getArtists;
+module.exports = getArtists

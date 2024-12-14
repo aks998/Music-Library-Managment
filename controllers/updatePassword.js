@@ -14,7 +14,12 @@ const updateUserPassword = asyncHandler(async (req, res) => {
   const token = authHeader && authHeader.split(' ')[1];
 
   if (!token) {
-    return res.status(401).send(); 
+    return res.status(401).json({
+      status: 401,
+      data: null,
+      message: 'Unauthorized Access',
+      error: null,
+    });
   }
 
   try {
@@ -24,11 +29,16 @@ const updateUserPassword = asyncHandler(async (req, res) => {
 
     const getUserQuery = `SELECT * FROM Users WHERE email = @email`;
     const getUserResult = await pool.request()
-      .input('email', sql.VarChar, decoded.email) 
+      .input('email', sql.VarChar, decoded.email)
       .query(getUserQuery);
 
     if (getUserResult.recordset.length === 0) {
-      return res.status(404).send(); 
+      return res.status(404).json({
+        status: 404,
+        data: null,
+        message: 'User not found.',
+        error: null,
+      });
     }
 
     const user = getUserResult.recordset[0];
@@ -36,7 +46,12 @@ const updateUserPassword = asyncHandler(async (req, res) => {
     const isMatch = await bcrypt.compare(old_password, user.password);
 
     if (!isMatch) {
-      return res.status(400).send(); 
+      return res.status(400).json({
+        status: 400,
+        data: null,
+        message: 'Incorrect old password.',
+        error: null,
+      });
     }
 
     const hashedNewPassword = await bcrypt.hash(new_password, 10);
@@ -47,10 +62,15 @@ const updateUserPassword = asyncHandler(async (req, res) => {
       .input('newPassword', sql.VarChar, hashedNewPassword)
       .query(updateUserQuery);
 
-    res.status(204).send(); // No content
+    res.status(204).send();
 
   } catch (error) {
-    console.error("Update Password error:", error);
+    return res.status(401).json({
+      status: 401,
+      data: null,
+      message: 'Unauthorized Access',
+      error: null,
+    });
   }
 });
 

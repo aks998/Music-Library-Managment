@@ -37,7 +37,7 @@ const addArtist = asyncHandler(async (req, res) => {
     await pool.request()
       .input('artistId', sql.UniqueIdentifier, artistId)
       .input('name', sql.VarChar, name)
-      .input('grammy', sql.Bit, grammy ? 1 : 0) 
+      .input('grammy', sql.INT, grammy)
       .input('hidden', sql.Bit, hidden ? 1 : 0) 
       .query(insertArtistQuery);
 
@@ -50,11 +50,11 @@ const addArtist = asyncHandler(async (req, res) => {
 
   } catch (error) {
     console.error("Add Artist error:", error);
-    res.status(500).json({
-      status: 500,
-      data: null,
-      message: "Internal Server Error",
-      error: error.message, 
+    return res.status(401).json({
+        status: 401,
+        data: null,
+        message: 'Unauthorized Access',
+        error: null,
     });
   }
 });
