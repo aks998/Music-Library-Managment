@@ -44,7 +44,7 @@ const updateArtist = asyncHandler(async (req, res) => {
             queryParams.push({ name: 'name', type: sql.VarChar, value: name });
         }
         if (grammy !== undefined) {
-            queryParams.push({ name: 'grammy', type: sql.Bit, value: grammy ? 1 : 0 });
+            queryParams.push({ name: 'grammy', type: sql.INT, value: grammy});
         }
         if (hidden !== undefined) {
             queryParams.push({ name: 'hidden', type: sql.Bit, value: hidden ? 1 : 0 });
@@ -64,7 +64,7 @@ const updateArtist = asyncHandler(async (req, res) => {
             });
         }
 
-        res.status(204).send();
+        return res.status(204);
 
     } catch (error) {
         return res.status(401).json({
